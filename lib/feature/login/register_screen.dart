@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:todo/feature/auth/login/controller/login_controller.dart';
-import 'package:todo/feature/auth/login/register_screen.dart';
+import 'package:todo/feature/login/controller/login_controller.dart';
+import 'package:todo/feature/login/login_screen.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class RegisterScreen extends StatefulWidget {
+  const RegisterScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<RegisterScreen> createState() => RegisterScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class RegisterScreenState extends State<RegisterScreen> {
   var authController = Get.put(LoginController());
   var passwordController = TextEditingController();
+  var confirmpasswordController = TextEditingController();
   var emailController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   bool isPasswordVisible = false;
+  bool isconfirmPasswordVisible = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,12 +32,12 @@ class _LoginScreenState extends State<LoginScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                SizedBox(height: 75.h),
+                SizedBox(height: 95.h),
                 Text(
-                  'Log In',
+                  'Register',
                   style: TextStyle(color: Colors.white, fontSize: 32.sp),
                 ),
-                SizedBox(height: 30.h),
+                SizedBox(height: 20.h),
                 Text(
                   'E-mail',
                   style: TextStyle(color: Colors.white, fontSize: 14.sp),
@@ -131,19 +134,77 @@ class _LoginScreenState extends State<LoginScreen> {
                   },
                   keyboardType: TextInputType.visiblePassword,
                 ),
-                SizedBox(height: 40.h),
+                SizedBox(height: 10.h),
+
+                Text(
+                  'Confirm Password',
+                  style: TextStyle(color: Colors.white, fontSize: 14.sp),
+                ),
+                SizedBox(height: 10.h),
+
+                TextFormField(
+                  controller: confirmpasswordController,
+                  obscureText: isconfirmPasswordVisible,
+                  decoration: InputDecoration(
+                    hintText: "Confirm Password",
+                    hintStyle: const TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                      fontStyle: FontStyle.normal,
+                      fontWeight: FontWeight.w500,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        isconfirmPasswordVisible
+                            ? Icons.visibility_off
+                            : Icons.visibility,
+                        color: Colors.grey,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isconfirmPasswordVisible = !isconfirmPasswordVisible;
+                        });
+                      },
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: const BorderSide(
+                        color: Colors.red,
+                        width: 1.0,
+                      ),
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12.0),
+                      borderSide: BorderSide(color: Colors.white, width: 1.0),
+                    ),
+                    contentPadding: EdgeInsets.symmetric(horizontal: 10.w),
+                  ),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Email is required';
+                    }
+                    return null;
+                  },
+                  keyboardType: TextInputType.visiblePassword,
+                ),
+                SizedBox(height: 30.h),
                 GestureDetector(
                   onTap: authController.isLoading.value
                       ? null
                       : () async {
                           if (_formKey.currentState!.validate()) {
-                            await authController.login(
+                            await authController.register(
                               emailController.text.trim(),
-                              passwordController.text.trim(),
+                              confirmpasswordController.text.trim(),
                             );
                           }
                         },
                   child: Container(
+                    margin: EdgeInsets.all(16),
                     padding: EdgeInsets.all(12),
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
@@ -154,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Obx(
                         () => authController.isLoading.value
                             ? CircularProgressIndicator(color: Colors.white)
-                            : Text("Login"),
+                            : Text("Register"),
                       ),
                     ),
                   ),
@@ -164,17 +225,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('Don’t have an account? '),
+                    Text('Already have account? '),
                     TextButton(
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => RegisterScreen(),
+                            builder: (context) => LoginScreen(),
                           ),
                         );
                       },
-                      child: Text('Register'),
+                      child: Text('Log In'),
                     ),
                   ],
                 ),

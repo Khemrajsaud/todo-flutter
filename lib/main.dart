@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todo/feature/auth/login/controller/login_controller.dart';
-import 'package:todo/feature/auth/login/login_screen.dart';
+import 'package:todo/feature/login/controller/login_controller.dart';
+import 'package:todo/feature/login/login_screen.dart';
 import 'package:todo/firebase_options.dart';
-import 'package:todo/introduction/intro.dart';
+import 'package:todo/feature/introduction/intro.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

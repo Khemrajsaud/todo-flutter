@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:todo/home/home.dart';
-import 'package:todo/introduction/start_screen.dart';
+import 'package:todo/feature/introduction/start_screen.dart';
 
 class OnBoardingPage extends StatefulWidget {
   const OnBoardingPage({super.key});

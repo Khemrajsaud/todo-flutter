@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:todo/feature/auth/login/login_screen.dart';
-import 'package:todo/feature/auth/login/register_screen.dart';
+import 'package:todo/feature/login/login_screen.dart';
+import 'package:todo/feature/login/register_screen.dart';
+
 
 class StartScreen extends StatefulWidget {
   const StartScreen({super.key});

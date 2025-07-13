@@ -3,12 +3,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
-import 'package:todo/feature/auth/login/calender/celender_page.dart';
-import 'package:todo/feature/auth/login/profilepage/profile.dart';
+import 'package:todo/feature/calender/celender_page.dart';
 import 'package:todo/feature/focus/focus_page.dart';
 
-import 'package:todo/home/home_page.dart';
-import 'package:todo/home/widget/addtaskbottom.dart';
+import 'package:todo/feature/home/home_page.dart';
+import 'package:todo/feature/home/widget/addtaskbottom.dart';
+import 'package:todo/feature/profilepage/profile.dart';
 
 class Dashbord extends StatefulWidget {
   const Dashbord({super.key});
