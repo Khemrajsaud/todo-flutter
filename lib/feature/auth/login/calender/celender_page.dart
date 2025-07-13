@@ -1,94 +1,85 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_calendar/flutter_advanced_calendar.dart';
 
-class CalederPage extends StatefulWidget {
-  const CalederPage({super.key});
-
-  @override
-  State<CalederPage> createState() => _CalederPageState();
+void main() {
+  runApp(const CalenderPage());
 }
 
-class _CalederPageState extends State<CalederPage> {
+class CalenderPage extends StatefulWidget {
+  const CalenderPage({Key? key}) : super(key: key);
 
- 
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<CalenderPage> {
+  final _calendarControllerToday = AdvancedCalendarController.today();
+  final _calendarControllerCustom = AdvancedCalendarController(
+    DateTime(2022, 10, 23),
+  );
+  final events = <DateTime>[DateTime.now(), DateTime(2022, 10, 10)];
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.black,
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+    return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Advanced Calendar Example')),
+        body: Builder(
+          builder: (context) {
+            final theme = Theme.of(context);
+
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                IconButton(icon: Icon(Icons.arrow_left, color: Colors.grey), onPressed: () {}),
-                Text(
-                  'FEBRUARY 2022',
-                  style: TextStyle(fontSize: 20, color: Colors.white),
+                AdvancedCalendar(
+                  showNavigationArrows: true,
+                  controller: _calendarControllerToday,
+                  events: events,
+                  startWeekDay: 1,
                 ),
-                IconButton(icon: Icon(Icons.arrow_right, color: Colors.grey), onPressed: () {}),
+                Theme(
+                  data: theme.copyWith(
+                    textTheme: theme.textTheme.copyWith(
+                      titleMedium: theme.textTheme.titleMedium!.copyWith(
+                        fontSize: 16,
+                        color: theme.colorScheme.secondary,
+                      ),
+                      bodyLarge: theme.textTheme.bodyLarge!.copyWith(
+                        fontSize: 14,
+                        color: Colors.black54,
+                      ),
+                      bodyMedium: theme.textTheme.bodyMedium!.copyWith(
+                        fontSize: 12,
+                        color: Colors.black87,
+                      ),
+                    ),
+                    primaryColor: Colors.red,
+                    highlightColor: Colors.yellow,
+                    disabledColor: Colors.green,
+                  ),
+                  child: AdvancedCalendar(
+                    controller: _calendarControllerCustom,
+                    events: events,
+                    weekLineHeight: 48.0,
+                    startWeekDay: 1,
+                    innerDot: true,
+                    keepLineSize: true,
+                    calendarTextStyle: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w400,
+                      height: 1.3125,
+                      letterSpacing: 0,
+                    ),
+                  ),
+                ),
               ],
-            ),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildDayButton('SUN', Colors.red),
-              _buildDayButton('MON', Colors.white),
-              _buildDayButton('TUE', Colors.white),
-              _buildDayButton('WED', Colors.purple),
-              _buildDayButton('THU', Colors.white),
-              _buildDayButton('FRI', Colors.white),
-              _buildDayButton('SAT', Colors.red),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildDateButton('6'),
-              _buildDateButton('7'),
-              _buildDateButton('8'),
-              _buildDateButton('9', isSelected: true),
-              _buildDateButton('10'),
-              _buildDateButton('11'),
-              _buildDateButton('12'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildDayButton(String day, Color color) {
-    return SizedBox(
-      width: 40,
-      height: 40,
-      child: Center(
-        child: Text(
-          day,
-          style: TextStyle(color: color, fontSize: 16),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDateButton(String date, {bool isSelected = false}) {
-    return Container(
-      width: 40,
-      height: 40,
-      margin: EdgeInsets.all(4.0),
-      decoration: BoxDecoration(
-        color: isSelected ? Colors.purple : Colors.transparent,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Center(
-        child: Text(
-          date,
-          style: TextStyle(color: isSelected ? Colors.white : Colors.white, fontSize: 16),
+            );
+          },
         ),
       ),
     );
   }
 }
-  
-

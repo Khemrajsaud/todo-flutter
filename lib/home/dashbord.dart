@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:persistent_bottom_nav_bar/persistent_bottom_nav_bar.dart';
 import 'package:todo/feature/auth/login/calender/celender_page.dart';
+import 'package:todo/feature/auth/login/profilepage/profile.dart';
 import 'package:todo/feature/focus/focus_page.dart';
 
 import 'package:todo/home/home_page.dart';
@@ -24,10 +25,10 @@ class _HomeScreenState extends State<Dashbord> {
   List<Widget> _buildScreens() {
     return const [
       HomePage(),
-      CalederPage(),
+     CalenderPage(),
       SizedBox(),
       FocusPage(),
-      ProfilePage(),
+     Profile(),
     ];
   }
 
@@ -73,7 +74,7 @@ class _HomeScreenState extends State<Dashbord> {
       ),
 
       PersistentBottomNavBarItem(
-        icon: const Icon(Icons.person_2),
+        icon: const Icon(Icons.center_focus_strong),
         title: ("Focus"),
         activeColorPrimary: Colors.blue,
         inactiveColorPrimary: Colors.grey,
